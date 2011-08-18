@@ -1,61 +1,50 @@
-Supported options
-=================
+Overview
+========
 
-The recipe supports the following options:
+This recipe allows to set environment variables during the execution of a buildout.
 
-.. Note to recipe author!
-   ----------------------
-   For each option the recipe uses you should include a description
-   about the purpose of the option, the format and semantics of the
-   values it accepts, whether it is mandatory or optional and what the
-   default value is if it is omitted.
+There isn't any options for this recipe: all options in the part are set as environment variables.
 
-option1
-    Description for ``option1``...
-
-option2
-    Description for ``option2``...
-
+The environment variables are set during the initialization of the ``Recipe`` instance, i.e. after 
+``buildout.cfg`` is read but before any recipe is installed or updated.
 
 Example usage
 =============
-
-.. Note to recipe author!
-   ----------------------
-   zc.buildout provides a nice testing environment which makes it
-   relatively easy to write doctests that both demonstrate the use of
-   the recipe and test it.
-   You can find examples of recipe doctests from the PyPI, e.g.
-   
-     http://pypi.python.org/pypi/zc.recipe.egg
-
-   The PyPI page for zc.buildout contains documentation about the test
-   environment.
-
-     http://pypi.python.org/pypi/zc.buildout#testing-support
-
-   Below is a skeleton doctest that you can start with when building
-   your own tests.
 
 We'll start by creating a buildout that uses the recipe::
 
     >>> write('buildout.cfg',
     ... """
     ... [buildout]
-    ... parts = test1
+    ... parts = environment print
     ...
-    ... [test1]
+    ... [some-section]
+    ... some-option = value2
+    ...
+    ... [environment]
     ... recipe = collective.recipe.environment
-    ... option1 = %(foo)s
-    ... option2 = %(bar)s
-    ... """ % { 'foo' : 'value1', 'bar' : 'value2'})
+    ... var1 = value1
+    ... var2 = ${some-section:some-option}
+    ... 
+    ... [print]
+    ... recipe = mr.scripty
+    ... install = 
+    ...     ... import os
+    ...     ... for var in ('var1', 'var2'):
+    ...     ...     print '%s = %s' % (var, os.environ[var])
+    ...     ... return []
+    ... """)
+
+The `mr.scripty`_ recipe is used to print out the values of the environment variables.
 
 Running the buildout gives us::
 
     >>> print 'start', system(buildout) 
     start...
-    Installing test1.
-    Unused options for test1: 'option2' 'option1'.
+    var1 = value1
+    var2 = value2
     <BLANKLINE>
 
 
+.. References
+.. _`mr.scripty`: http://pypi.python.org/pypi/mr.scripty

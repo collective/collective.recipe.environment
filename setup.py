@@ -9,33 +9,22 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.1'
+version = '0.1b1'
 
 long_description = (
-    read('README.txt')
-    + '\n' +
-    'Detailed Documentation\n'
-    '**********************\n'
+    '.. contents::\n'
     + '\n' +
     read('collective', 'recipe', 'environment', 'README.txt')
     + '\n' +
-    'Contributors\n'
-    '************\n'
-    + '\n' +
     read('CONTRIBUTORS.txt')
     + '\n' +
-    'Change history\n'
-    '**************\n'
-    + '\n' +
     read('CHANGES.txt')
-    + '\n' +
-   'Download\n'
-    '********\n')
+)
 
 entry_point = 'collective.recipe.environment:Recipe'
 entry_points = {"zc.buildout": ["default = %s" % entry_point]}
 
-tests_require = ['zope.testing', 'zc.buildout']
+tests_require = ['zope.testing', 'zc.buildout', 'mr.scripty']
 
 setup(name='collective.recipe.environment',
       version=version,
