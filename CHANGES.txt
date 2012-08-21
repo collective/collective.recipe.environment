@@ -4,8 +4,7 @@ Changelog
 0.2.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Now it's possible to read environment variables.
 
 0.1b1 (2011-08-18)
 ------------------
