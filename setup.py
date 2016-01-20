@@ -22,7 +22,9 @@ long_description = (
 )
 
 entry_point = 'collective.recipe.environment:Recipe'
-entry_points = {"zc.buildout": ["default = %s" % entry_point]}
+read_only = 'collective.recipe.environment:ReadOnly'
+entry_points = {"zc.buildout": ["default = %s" % entry_point,
+                                "read-only = %s" % read_only]}
 
 tests_require = ['zope.testing', 'zc.buildout', 'mr.scripty']
 
@@ -41,7 +43,7 @@ setup(name='collective.recipe.environment',
       keywords='zc.buildout buildout recipe',
       author='Rafael Oliveira',
       author_email='rafaelbco@gmail.com',
-      url='http://svn.plone.org/svn/collective/buildout/collective.recipe.environment',
+      url='https://github.com/collective/collective.recipe.environment',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective', 'collective.recipe'],

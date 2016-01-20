@@ -9,8 +9,10 @@ match_string = re.compile('.*[:]+.*').match
 class Recipe(object):
     """zc.buildout recipe"""
 
-    def __init__(self, buildout, name, options):
+    def __init__(self, buildout, name, options, read_only=False):
         self.buildout, self.name, self.options = buildout, name, options
+        if not read_only:
+            os.environ.update(options)
         options.update(os.environ)
         options['UID'] = str(os.getuid())
         options['GID'] = str(os.getgid())
@@ -26,3 +28,9 @@ class Recipe(object):
         return tuple()
 
     update = install
+
+class ReadOnly(object):
+    """zc.buildout recipe"""
+
+    def __init__(self, buildout, name, options):
+        super(self).__init__(buildout, name, options, read_only=True)
