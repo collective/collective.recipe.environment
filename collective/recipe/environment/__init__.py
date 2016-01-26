@@ -29,8 +29,8 @@ class Recipe(object):
 
     update = install
 
-class ReadOnly(object):
+class ReadOnly(Recipe):
     """zc.buildout recipe"""
 
     def __init__(self, buildout, name, options):
-        super(self).__init__(buildout, name, options, read_only=True)
+        super(ReadOnly, self).__init__(buildout, name, options, read_only=True)
