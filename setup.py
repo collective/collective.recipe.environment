@@ -7,7 +7,7 @@ import os
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.2.1.dev0'
+version = '1.0.0'
 
 long_description = '\n'.join([
     '.. contents::\n',
