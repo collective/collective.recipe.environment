@@ -1,0 +1,6 @@
+include *.txt
+include buildout.cfg
+include versions.cfg
+recursive-include docs *.rst
+include .travis.yml
+

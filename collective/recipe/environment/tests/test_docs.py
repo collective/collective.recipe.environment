@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
-"""
-Doctest runner for 'collective.recipe.environment'.
-"""
+"""Doctest runner."""
+
+from zope.testing import renormalizing
+import doctest
+import unittest
+import zc.buildout.testing
+import zc.buildout.tests
+import mr.scripty
+
 __docformat__ = 'restructuredtext'
 
-import unittest
-import zc.buildout.tests
-import zc.buildout.testing
+optionflags = (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE | doctest.REPORT_ONLY_FIRST_FAILURE)
 
-from zope.testing import doctest, renormalizing
-
-optionflags =  (doctest.ELLIPSIS |
-                doctest.NORMALIZE_WHITESPACE |
-                doctest.REPORT_ONLY_FIRST_FAILURE)
 
 def setUp(test):
     zc.buildout.testing.buildoutSetUp(test)
@@ -21,12 +20,13 @@ def setUp(test):
     zc.buildout.testing.install_develop('collective.recipe.environment', test)
 
     # Install any other recipes that should be available in the tests
-    zc.buildout.testing.install('mr.scripty', test)
+    zc.buildout.testing.install(mr.scripty.__name__, test)
+
 
 def test_suite():
     suite = unittest.TestSuite((
             doctest.DocFileSuite(
-                '../README.txt',
+                '../../../../README.rst',
                 setUp=setUp,
                 tearDown=zc.buildout.testing.buildoutTearDown,
                 optionflags=optionflags,

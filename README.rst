@@ -16,6 +16,7 @@ Example usage: Use an environment variable
 
 We'll start by creating a buildout that uses the recipe::
 
+    >>> import mr.scripty
     >>> write('buildout.cfg',
     ... """
     ... [buildout]
@@ -47,7 +48,7 @@ Running the buildout gives us::
     >>> print 'start', system(buildout)
     start...
     some_value
-    <BLANKLINE>
+    ...
 
 
 Example usage: Set an environment variable
@@ -85,7 +86,7 @@ Running the buildout gives us::
     start...
     var1 = value1
     var2 = value2
-    <BLANKLINE>
+    ...
 
 Similar recipes
 ===============
