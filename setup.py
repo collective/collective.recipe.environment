@@ -10,6 +10,7 @@ def read(*rnames):
 version = '0.2.1.dev0'
 
 long_description = '\n'.join([
+    '.. contents::\n',
     read('README.rst'),
     read('docs', 'HISTORY.rst')
 ])

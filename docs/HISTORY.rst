@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.2.1 (unreleased)
+------------------
+
+- Fix bug: Values containing variable substitution syntax breaks things
+
 0.2.0 (2012-08-21)
 ------------------
 

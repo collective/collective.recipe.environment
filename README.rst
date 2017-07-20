@@ -16,7 +16,6 @@ Example usage: Use an environment variable
 
 We'll start by creating a buildout that uses the recipe::
 
-    >>> import mr.scripty
     >>> write('buildout.cfg',
     ... """
     ... [buildout]
@@ -88,11 +87,68 @@ Running the buildout gives us::
     var2 = value2
     ...
 
+
 Similar recipes
 ===============
 
 The functionality to mirror the environment variables into the recipe's section is largely copied
 from `gocept.recipe.env`_.
+
+
+Regression test: Values containing variable substitution syntax breaks things
+=============================================================================
+
+Problem: if an environment variable value contains something looking like variable substitution
+in Buildout syntax then things break. We fix this by escaping the variable substitutions using
+two dollar signs. Eg.: ``${foo}`` becomes ``$${foo}``.
+
+Let's see if it works.
+
+Set environment variables::
+
+    >>> os.environ['PROBLEM_VAR_1'] = '${foo}'
+    >>> os.environ['PROBLEM_VAR_2'] = '${foo:bar}'
+    >>> os.environ['PROBLEM_VAR_3'] = 'Contains ${foo} and also ${foo:bar}.'
+    >>> os.environ['LEGAL_VAR_1'] = '$foo'
+    >>> os.environ['LEGAL_VAR_2'] = '{foo}'
+
+Write a buildout using those variables::
+
+    >>> write('buildout.cfg',
+    ... """
+    ... [buildout]
+    ... parts = environment print
+    ...
+    ... [some-section]
+    ... option-1 = ${environment:PROBLEM_VAR_1}
+    ... option-2 = ${environment:PROBLEM_VAR_2}
+    ... option-3 = ${environment:PROBLEM_VAR_3}
+    ... option-4 = ${environment:LEGAL_VAR_1}
+    ... option-5 = ${environment:LEGAL_VAR_2}
+    ...
+    ... [environment]
+    ... recipe = collective.recipe.environment
+    ...
+    ... [print]
+    ... recipe = mr.scripty
+    ... install =
+    ...     ... section = self.buildout['some-section']
+    ...     ... for (k, v) in sorted(section.iteritems()):
+    ...     ...     print '{} = {}'.format(k, v)
+    ...     ... return []
+    ...
+    ... """)
+
+Running the buildout gives us::
+
+    >>> print 'start', system(buildout)
+    start...
+    option-1 = $${foo}
+    option-2 = $${foo:bar}
+    option-3 = Contains $${foo} and also $${foo:bar}.
+    option-4 = $foo
+    option-5 = {foo}
+    ...
 
 .. References
 .. _`mr.scripty`: http://pypi.python.org/pypi/mr.scripty
