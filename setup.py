@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import find_packages
 from setuptools import setup
+
 import os
 
 
@@ -58,5 +59,6 @@ setup(
     entry_points={
         'zc.buildout': [
             'default = collective.recipe.environment:Recipe',
-        ]},
+        ]
+    },
 )
