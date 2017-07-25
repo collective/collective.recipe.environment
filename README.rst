@@ -1,8 +1,8 @@
-.. contents::
-
 .. image:: https://travis-ci.org/collective/collective.recipe.environment.svg?branch=master
    :target: https://travis-ci.org/collective/collective.recipe.environment
    :alt: Build status
+
+.. contents::
 
 Overview
 ========
