@@ -50,11 +50,10 @@ Now we set the environment variable::
 
 Running the buildout gives us::
 
-    >>> print('start ' + system(buildout))
-    start...
+    >>> run_buildout()
+    START...
     some_value
-    ...
-
+    ...END
 
 Example usage: Set an environment variable
 ==========================================
@@ -87,12 +86,11 @@ The `mr.scripty`_ recipe is used to print out the values of the environment vari
 
 Running the buildout gives us::
 
-    >>> print('start ' + system(buildout))
-    start...
+    >>> run_buildout()
+    START...
     var1 = value1
     var2 = value2
-    ...
-
+    ...END
 
 Similar recipes
 ===============
@@ -147,14 +145,14 @@ Write a buildout using those variables::
 
 Running the buildout gives us::
 
-    >>> print('start ' + system(buildout))
-    start...
+    >>> run_buildout()
+    START...
     option-1 = $${foo}
     option-2 = $${foo:bar}
     option-3 = Contains $${foo} and also $${foo:bar}.
     option-4 = $foo
     option-5 = {foo}
-    ...
+    ...END
 
 .. References
 .. _`mr.scripty`: http://pypi.python.org/pypi/mr.scripty

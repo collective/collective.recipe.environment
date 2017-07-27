@@ -3,10 +3,10 @@
 
 from zope.testing import renormalizing
 import doctest
+import mr.scripty
 import unittest
 import zc.buildout.testing
 import zc.buildout.tests
-import mr.scripty
 
 __docformat__ = 'restructuredtext'
 
@@ -15,6 +15,16 @@ optionflags = (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE | doctest.REPORT_
 
 def setUp(test):
     zc.buildout.testing.buildoutSetUp(test)
+
+    cmd = test.globs['buildout'] + ' buildout:offline=true'
+    system = test.globs['system']
+
+    def run_buildout():
+        print('START')
+        print(system(cmd))
+        print('END')
+
+    test.globs['run_buildout'] = run_buildout
 
     # Install the recipe in develop mode
     zc.buildout.testing.install_develop('collective.recipe.environment', test)
