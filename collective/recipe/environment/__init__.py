@@ -13,7 +13,7 @@ class Recipe(object):
         self.options = options
         os.environ.update(options)
 
-        env_vars = {k: self._escape_var_substitutions(v) for (k, v) in os.environ.iteritems()}
+        env_vars = {k: self._escape_var_substitutions(v) for (k, v) in os.environ.items()}
         options.update(env_vars)
 
     def install(self):

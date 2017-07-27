@@ -36,7 +36,7 @@ We'll start by creating a buildout that uses the recipe::
     ... [print]
     ... recipe = mr.scripty
     ... install =
-    ...     ... print self.buildout['some-section']['some-option']
+    ...     ... print(self.buildout['some-section']['some-option'])
     ...     ... return []
     ... """)
 
@@ -50,7 +50,7 @@ Now we set the environment variable::
 
 Running the buildout gives us::
 
-    >>> print 'start', system(buildout)
+    >>> print('start ' + system(buildout))
     start...
     some_value
     ...
@@ -79,7 +79,7 @@ We'll start by creating a buildout that uses the recipe::
     ... install =
     ...     ... import os
     ...     ... for var in ('var1', 'var2'):
-    ...     ...     print '%s = %s' % (var, os.environ[var])
+    ...     ...     print('%s = %s' % (var, os.environ[var]))
     ...     ... return []
     ... """)
 
@@ -87,7 +87,7 @@ The `mr.scripty`_ recipe is used to print out the values of the environment vari
 
 Running the buildout gives us::
 
-    >>> print 'start', system(buildout)
+    >>> print('start ' + system(buildout))
     start...
     var1 = value1
     var2 = value2
@@ -139,15 +139,15 @@ Write a buildout using those variables::
     ... recipe = mr.scripty
     ... install =
     ...     ... section = self.buildout['some-section']
-    ...     ... for (k, v) in sorted(section.iteritems()):
-    ...     ...     print '{} = {}'.format(k, v)
+    ...     ... for (k, v) in sorted(section.items()):
+    ...     ...     print('{} = {}'.format(k, v))
     ...     ... return []
     ...
     ... """)
 
 Running the buildout gives us::
 
-    >>> print 'start', system(buildout)
+    >>> print('start ' + system(buildout))
     start...
     option-1 = $${foo}
     option-2 = $${foo:bar}
