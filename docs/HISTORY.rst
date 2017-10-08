@@ -1,10 +1,13 @@
 Changelog
 =========
 
-1.0.1 (unreleased)
+1.1.0 (2017-07-27)
 ------------------
 
-- Nothing changed yet.
+New features:
+
+- Fix code for Python 3 compatiblity.
+  [cas--]
 
 
 1.0.0 (2017-07-20)
