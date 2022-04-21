@@ -14,11 +14,7 @@ version = '0.2.0.readonly'
 long_description = (
     '.. contents::\n'
     + '\n' +
-    read('collective', 'recipe', 'environment', 'README.txt')
-    + '\n' +
-    read('CONTRIBUTORS.txt')
-    + '\n' +
-    read('CHANGES.txt')
+    read('README.txt')
 )
 
 entry_point = 'collective.recipe.environment:Recipe'
